@@ -70,7 +70,13 @@ public class GUIListener implements Listener {
         player.closeInventory();
 
         // Guard: player may have changed worlds since the GUI was opened
-        if (!configManager.isWorldEnabled(player.getWorld())) {
+        if (configManager.isWorldDisabled(player.getWorld())) {
+            player.sendMessage(configManager.getMessage("invalid-world"));
+            return;
+        }
+
+        // Guard: target world must not be disabled
+        if (configManager.isWorldDisabled(targetWorld)) {
             player.sendMessage(configManager.getMessage("invalid-world"));
             return;
         }
