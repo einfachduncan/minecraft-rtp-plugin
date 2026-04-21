@@ -2,8 +2,16 @@ rtp:
   # Global radius for random teleport in blocks
   radius: 5000
 
-  # Cooldown between teleports in seconds
+  # Cooldown between teleports in seconds.
+  # Operators can change this in-game with: /rtp setcooldown <seconds>
   cooldown: 30
+
+  # World names shown as buttons inside the /rtp GUI.
+  # Remove an entry (or set a name that doesn't exist) to hide that button.
+  gui:
+    overworld-world: world
+    nether-world: world_nether
+    end-world: world_the_end
 
   # World-specific radius configurations
   worlds:
@@ -18,3 +26,15 @@ rtp:
     cooldown: "&cPlease wait &e{time} &cseconds before teleporting again."
     no-permission: "&cYou don't have permission to use this command."
     invalid-world: "&cRandom teleport is not available in this world."
+    no-safe-location: "&cCould not find a safe location. Please try again."
+    cooldown-set: "&aCooldown set to &e{seconds} &aseconds."
+    cooldown-invalid: "&cCooldown must be 0 or greater."
+    cooldown-nan: "&cInvalid number: {input}"
+    # GUI text
+    gui-title: "RTP - Wähle eine Welt"
+    gui-overworld-name: "Overworld"
+    gui-overworld-lore: "Teleportiere dich in die Oberwelt"
+    gui-nether-name: "Nether"
+    gui-nether-lore: "Teleportiere dich in den Nether"
+    gui-end-name: "The End"
+    gui-end-lore: "Teleportiere dich ins Ende"

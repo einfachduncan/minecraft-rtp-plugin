@@ -8,8 +8,8 @@ website: https://github.com/einfachduncan/minecraft-rtp-plugin
 
 commands:
   rtp:
-    description: Teleport to a random location
-    usage: /rtp
+    description: Teleport to a random location via world-selection GUI
+    usage: /rtp [setcooldown <seconds>]
     permission: rtp.use
     permission-message: "&cYou don't have permission to use this command."
 
@@ -18,5 +18,5 @@ permissions:
     description: Allows the player to use the /rtp command
     default: true
   rtp.admin:
-    description: Allows the player to use admin RTP features (bypass cooldown)
+    description: Allows the player to bypass the cooldown and use /rtp setcooldown
     default: op
