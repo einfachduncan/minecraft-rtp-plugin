@@ -145,7 +145,7 @@ public class ConfigManager {
     // --- GUI text ---
 
     public String getGuiTitle() {
-        return config.getString("rtp.messages.gui-title", "RTP - Wähle eine Welt");
+        return config.getString("rtp.messages.gui-title", "RTP - Choose a World");
     }
 
     public String getGuiOverworldName() {
@@ -153,7 +153,7 @@ public class ConfigManager {
     }
 
     public String getGuiOverworldLore() {
-        return config.getString("rtp.messages.gui-overworld-lore", "Teleportiere dich in die Oberwelt");
+        return config.getString("rtp.messages.gui-overworld-lore", "Teleport to the Overworld");
     }
 
     public String getGuiNetherName() {
@@ -161,7 +161,7 @@ public class ConfigManager {
     }
 
     public String getGuiNetherLore() {
-        return config.getString("rtp.messages.gui-nether-lore", "Teleportiere dich in den Nether");
+        return config.getString("rtp.messages.gui-nether-lore", "Teleport to the Nether");
     }
 
     public String getGuiEndName() {
@@ -169,7 +169,7 @@ public class ConfigManager {
     }
 
     public String getGuiEndLore() {
-        return config.getString("rtp.messages.gui-end-lore", "Teleportiere dich ins Ende");
+        return config.getString("rtp.messages.gui-end-lore", "Teleport to The End");
     }
 
     public String getGuiInfoName() {
