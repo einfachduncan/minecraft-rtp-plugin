@@ -2,9 +2,13 @@ package me.einfachduncan.rtp.config;
 
 import me.einfachduncan.rtp.RandomTeleportPlugin;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConfigManager {
 
@@ -47,6 +51,58 @@ public class ConfigManager {
     public void setCooldown(int seconds) {
         config.set("rtp.cooldown", seconds);
         plugin.saveConfig();
+    }
+
+    public void setCombatCooldown(int seconds) {
+        config.set("rtp.combat-cooldown", seconds);
+        plugin.saveConfig();
+    }
+
+    public void setSearchTime(int seconds) {
+        config.set("rtp.search-time", seconds);
+        plugin.saveConfig();
+    }
+
+    public void setMaxHeight(int blocks) {
+        config.set("rtp.max-height", blocks);
+        plugin.saveConfig();
+    }
+
+    public void setWorldRadius(String worldName, int radius) {
+        config.set("rtp.worlds." + worldName, radius);
+        plugin.saveConfig();
+    }
+
+    public void disableWorld(String worldName) {
+        List<String> disabledWorlds = new ArrayList<>(config.getStringList("rtp.disabled-worlds"));
+        if (!disabledWorlds.contains(worldName)) {
+            disabledWorlds.add(worldName);
+            config.set("rtp.disabled-worlds", disabledWorlds);
+            plugin.saveConfig();
+        }
+    }
+
+    public void enableWorld(String worldName) {
+        List<String> disabledWorlds = new ArrayList<>(config.getStringList("rtp.disabled-worlds"));
+        if (disabledWorlds.remove(worldName)) {
+            config.set("rtp.disabled-worlds", disabledWorlds);
+            plugin.saveConfig();
+        }
+    }
+
+    public List<String> getDisabledWorlds() {
+        return config.getStringList("rtp.disabled-worlds");
+    }
+
+    public Map<String, Integer> getAllWorldRadii() {
+        Map<String, Integer> result = new LinkedHashMap<>();
+        ConfigurationSection section = config.getConfigurationSection("rtp.worlds");
+        if (section != null) {
+            for (String key : section.getKeys(false)) {
+                result.put(key, section.getInt(key));
+            }
+        }
+        return result;
     }
 
     public int getWorldRadius(String worldName) {
