@@ -124,7 +124,13 @@ public class TeleportService {
         UUID uuid = player.getUniqueId();
 
         // World check – defence-in-depth for callers that bypass the command/GUI layer
-        if (!configManager.isWorldEnabled(player.getWorld())) {
+        if (configManager.isWorldDisabled(player.getWorld())) {
+            player.sendMessage(configManager.getMessage("invalid-world"));
+            return;
+        }
+
+        // Target world check – block teleportation into disabled worlds
+        if (configManager.isWorldDisabled(targetWorld)) {
             player.sendMessage(configManager.getMessage("invalid-world"));
             return;
         }

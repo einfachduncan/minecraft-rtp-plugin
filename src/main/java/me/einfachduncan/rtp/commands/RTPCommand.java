@@ -57,8 +57,8 @@ public class RTPCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // Check if RTP is allowed in the player's current world
-        if (!configManager.isWorldEnabled(player.getWorld())) {
+        // Check if RTP is blocked in the player's current world
+        if (configManager.isWorldDisabled(player.getWorld())) {
             player.sendMessage(configManager.getMessage("invalid-world"));
             return true;
         }

@@ -62,16 +62,14 @@ public class ConfigManager {
     }
 
     /**
-     * Returns true if the given world is allowed for RTP.
-     * If no {@code enabled-worlds} list is configured (or the list is empty),
-     * every world is considered enabled.
+     * Returns true if the given world is blocked for RTP.
+     * Worlds listed under {@code disabled-worlds} are off-limits for both
+     * the source (player's current world) and the destination.
+     * If the list is empty, no world is blocked.
      */
-    public boolean isWorldEnabled(World world) {
-        List<String> enabledWorlds = config.getStringList("rtp.enabled-worlds");
-        if (enabledWorlds.isEmpty()) {
-            return true;
-        }
-        return enabledWorlds.contains(world.getName());
+    public boolean isWorldDisabled(World world) {
+        List<String> disabledWorlds = config.getStringList("rtp.disabled-worlds");
+        return disabledWorlds.contains(world.getName());
     }
 
     // --- GUI world names ---
