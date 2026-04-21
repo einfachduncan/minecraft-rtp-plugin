@@ -3,6 +3,8 @@ package me.einfachduncan.rtp;
 import me.einfachduncan.rtp.commands.RTPCommand;
 import me.einfachduncan.rtp.config.ConfigManager;
 import me.einfachduncan.rtp.listeners.GUIListener;
+import me.einfachduncan.rtp.listeners.PlayerDamageListener;
+import me.einfachduncan.rtp.listeners.PlayerMoveListener;
 import me.einfachduncan.rtp.service.TeleportService;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,6 +25,10 @@ public class RandomTeleportPlugin extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(
                 new GUIListener(configManager, teleportService), this);
+        getServer().getPluginManager().registerEvents(
+                new PlayerMoveListener(configManager, teleportService), this);
+        getServer().getPluginManager().registerEvents(
+                new PlayerDamageListener(teleportService), this);
 
         getLogger().info("RandomTeleportPlugin has been enabled!");
     }

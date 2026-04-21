@@ -1,6 +1,7 @@
 package me.einfachduncan.rtp.gui;
 
 import me.einfachduncan.rtp.config.ConfigManager;
+import me.einfachduncan.rtp.service.TeleportService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -19,6 +20,8 @@ public class RTPGui {
     public static final int OVERWORLD_SLOT = 11;
     public static final int NETHER_SLOT = 13;
     public static final int END_SLOT = 15;
+    public static final int INFO_SLOT = 4;
+    public static final int CANCEL_SLOT = 22;
 
     private RTPGui() {}
 
@@ -26,7 +29,7 @@ public class RTPGui {
      * Opens the RTP world-selection GUI for the given player.
      * Buttons are only shown for worlds that actually exist on this server.
      */
-    public static void open(Player player, ConfigManager configManager) {
+    public static void open(Player player, ConfigManager configManager, TeleportService teleportService) {
         String guiTitle = configManager.getGuiTitle();
 
         Inventory inv = Bukkit.createInventory(null, 27,
@@ -76,6 +79,32 @@ public class RTPGui {
                             .color(NamedTextColor.GRAY)
                             .decoration(TextDecoration.ITALIC, false))));
         }
+
+        // Info button – shows current cooldown / combat / ready status
+        String infoLore;
+        if (teleportService.isInCombat(player)) {
+            infoLore = configManager.getGuiInfoCombatLore(teleportService.getRemainingCombatCooldown(player));
+        } else if (!player.hasPermission("rtp.admin") && teleportService.isOnCooldown(player)) {
+            infoLore = configManager.getGuiInfoCooldownLore(teleportService.getRemainingCooldown(player));
+        } else {
+            infoLore = configManager.getGuiInfoReadyLore();
+        }
+        inv.setItem(INFO_SLOT, createItem(Material.BOOK,
+                Component.text(configManager.getGuiInfoName())
+                        .color(NamedTextColor.YELLOW)
+                        .decoration(TextDecoration.ITALIC, false),
+                List.of(Component.text(infoLore)
+                        .color(NamedTextColor.GRAY)
+                        .decoration(TextDecoration.ITALIC, false))));
+
+        // Cancel button
+        inv.setItem(CANCEL_SLOT, createItem(Material.BARRIER,
+                Component.text(configManager.getGuiCancelName())
+                        .color(NamedTextColor.RED)
+                        .decoration(TextDecoration.ITALIC, false),
+                List.of(Component.text(configManager.getGuiCancelLore())
+                        .color(NamedTextColor.GRAY)
+                        .decoration(TextDecoration.ITALIC, false))));
 
         player.openInventory(inv);
     }

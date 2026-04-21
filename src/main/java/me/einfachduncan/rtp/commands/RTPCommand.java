@@ -64,7 +64,7 @@ public class RTPCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        RTPGui.open(player, configManager);
+        RTPGui.open(player, configManager, teleportService);
         return true;
     }
 

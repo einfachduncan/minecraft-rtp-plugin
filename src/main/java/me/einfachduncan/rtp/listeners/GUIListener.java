@@ -40,6 +40,16 @@ public class GUIListener implements Listener {
         int slot = event.getSlot();
         String worldName;
 
+        if (slot == RTPGui.CANCEL_SLOT) {
+            player.closeInventory();
+            return;
+        }
+
+        if (slot == RTPGui.INFO_SLOT) {
+            // Info button is display-only; no action needed
+            return;
+        }
+
         if (slot == RTPGui.OVERWORLD_SLOT) {
             worldName = configManager.getOverworldName();
         } else if (slot == RTPGui.NETHER_SLOT) {
