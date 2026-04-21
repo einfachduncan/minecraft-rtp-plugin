@@ -138,6 +138,9 @@ public class TeleportService {
         int maxHeight = configManager.getMaxHeight();
         int searchTime = configManager.getSearchTime();
 
+        // Record start time so the async search can compute how much of the countdown remains
+        final long startTimeMs = System.currentTimeMillis();
+
         // Action-bar countdown shown every second while searching
         new BukkitRunnable() {
             int ticks = searchTime;
@@ -154,11 +157,16 @@ public class TeleportService {
             }
         }.runTaskTimer(plugin, 0L, 20L);
 
-        // Async location search
+        // Async location search; teleport is delayed so the total wait equals searchTime seconds
         new BukkitRunnable() {
             @Override
             public void run() {
                 Location safeLocation = TeleportUtil.findSafeLocation(targetWorld, radius, maxHeight);
+
+                // Calculate remaining ticks so the teleport always fires at the countdown end
+                long elapsedMs = System.currentTimeMillis() - startTimeMs;
+                long remainingMs = Math.max(0L, searchTime * 1000L - elapsedMs);
+                long remainingTicks = (remainingMs + 25L) / 50L; // round to nearest tick (1 tick = 50 ms)
 
                 new BukkitRunnable() {
                     @Override
@@ -183,7 +191,7 @@ public class TeleportService {
                             setCooldown(player);
                         }
                     }
-                }.runTask(plugin);
+                }.runTaskLater(plugin, remainingTicks);
             }
         }.runTaskAsynchronously(plugin);
     }
