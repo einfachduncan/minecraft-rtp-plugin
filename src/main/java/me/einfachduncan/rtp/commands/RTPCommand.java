@@ -57,6 +57,12 @@ public class RTPCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        // Check if RTP is allowed in the player's current world
+        if (!configManager.isWorldEnabled(player.getWorld())) {
+            player.sendMessage(configManager.getMessage("invalid-world"));
+            return true;
+        }
+
         // Check cooldown before opening the GUI
         if (!player.hasPermission("rtp.admin") && teleportService.isOnCooldown(player)) {
             long secondsLeft = teleportService.getRemainingCooldown(player);

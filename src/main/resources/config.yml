@@ -15,6 +15,12 @@ rtp:
   # Maximum Y coordinate a player may spawn at (surface worlds only)
   max-height: 320
 
+  # Only players standing in one of these worlds may use RTP.
+  # Remove this list (or leave it empty) to allow RTP in all worlds.
+  enabled-worlds:
+    - world
+    - world_custom
+
   # World names shown as buttons inside the /rtp GUI.
   # Remove an entry (or set a name that doesn't exist) to hide that button.
   gui:

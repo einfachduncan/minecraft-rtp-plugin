@@ -123,6 +123,12 @@ public class TeleportService {
     public void performTeleport(Player player, World targetWorld) {
         UUID uuid = player.getUniqueId();
 
+        // World check – defence-in-depth for callers that bypass the command/GUI layer
+        if (!configManager.isWorldEnabled(player.getWorld())) {
+            player.sendMessage(configManager.getMessage("invalid-world"));
+            return;
+        }
+
         // Combat check
         if (isInCombat(player)) {
             player.sendMessage(configManager.getCombatMessage());

@@ -1,7 +1,10 @@
 package me.einfachduncan.rtp.config;
 
 import me.einfachduncan.rtp.RandomTeleportPlugin;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+
+import java.util.List;
 
 public class ConfigManager {
 
@@ -56,6 +59,19 @@ public class ConfigManager {
 
     public boolean isWorldConfigured(String worldName) {
         return config.contains("rtp.worlds." + worldName);
+    }
+
+    /**
+     * Returns true if the given world is allowed for RTP.
+     * If no {@code enabled-worlds} list is configured (or the list is empty),
+     * every world is considered enabled.
+     */
+    public boolean isWorldEnabled(World world) {
+        List<String> enabledWorlds = config.getStringList("rtp.enabled-worlds");
+        if (enabledWorlds.isEmpty()) {
+            return true;
+        }
+        return enabledWorlds.contains(world.getName());
     }
 
     // --- GUI world names ---
