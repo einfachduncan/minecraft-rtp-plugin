@@ -1,0 +1,20 @@
+rtp:
+  # Global radius for random teleport in blocks
+  radius: 5000
+
+  # Cooldown between teleports in seconds
+  cooldown: 30
+
+  # World-specific radius configurations
+  worlds:
+    world: 5000
+    world_nether: 2000
+    world_the_end: 1000
+
+  # Messages (supports color codes like &a, &c, &e)
+  messages:
+    teleporting: "&eTeleporting you to a random location..."
+    teleported: "&aYou have been successfully teleported!"
+    cooldown: "&cPlease wait &e{time} &cseconds before teleporting again."
+    no-permission: "&cYou don't have permission to use this command."
+    invalid-world: "&cRandom teleport is not available in this world."
