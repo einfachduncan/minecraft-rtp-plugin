@@ -9,7 +9,7 @@ website: https://github.com/einfachduncan/minecraft-rtp-plugin
 commands:
   rtp:
     description: Teleport to a random location via world-selection GUI
-    usage: /rtp [setcooldown <seconds>]
+    usage: /rtp [admin <subcommand>|setcooldown <seconds>]
     permission: rtp.use
     permission-message: "&cYou don't have permission to use this command."
 
