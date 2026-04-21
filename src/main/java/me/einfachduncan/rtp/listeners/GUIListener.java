@@ -69,6 +69,12 @@ public class GUIListener implements Listener {
 
         player.closeInventory();
 
+        // Guard: player may have changed worlds since the GUI was opened
+        if (!configManager.isWorldEnabled(player.getWorld())) {
+            player.sendMessage(configManager.getMessage("invalid-world"));
+            return;
+        }
+
         // Guard: prevent double-triggering while still finding a location
         if (teleportService.isTeleporting(player)) {
             return;
