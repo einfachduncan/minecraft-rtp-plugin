@@ -38,7 +38,7 @@ rtp:
   # Messages (supports color codes like &a, &c, &e)
   messages:
     teleporting: "&eSearching for a random location... Don't move!"
-    teleported: "&aYou have been successfully teleported!"
+    teleported: "&aYou have been teleported!"
     cooldown: "&cPlease wait &e{time} &cseconds before teleporting again."
     no-permission: "&cYou don't have permission to use this command."
     invalid-world: "&cRandom teleport is not available in this world."
