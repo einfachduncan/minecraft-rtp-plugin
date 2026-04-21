@@ -6,6 +6,15 @@ rtp:
   # Operators can change this in-game with: /rtp setcooldown <seconds>
   cooldown: 30
 
+  # Seconds after taking damage before a player is allowed to use RTP
+  combat-cooldown: 15
+
+  # Seconds the plugin locks movement while searching for a location
+  search-time: 5
+
+  # Maximum Y coordinate a player may spawn at (surface worlds only)
+  max-height: 320
+
   # World names shown as buttons inside the /rtp GUI.
   # Remove an entry (or set a name that doesn't exist) to hide that button.
   gui:
@@ -30,6 +39,9 @@ rtp:
     cooldown-set: "&aCooldown set to &e{seconds} &aseconds."
     cooldown-invalid: "&cCooldown must be 0 or greater."
     cooldown-nan: "&cInvalid number: {input}"
+    in-combat: "&cYou cannot use RTP while in combat!"
+    rtp-cancelled-moved: "&cRTP cancelled - You moved!"
+    searching: "&eSearching for location... Don't move!"
     # GUI text
     gui-title: "RTP - Wähle eine Welt"
     gui-overworld-name: "Overworld"
@@ -38,3 +50,9 @@ rtp:
     gui-nether-lore: "Teleportiere dich in den Nether"
     gui-end-name: "The End"
     gui-end-lore: "Teleportiere dich ins Ende"
+    gui-info-name: "Status"
+    gui-info-ready-lore: "Ready to teleport!"
+    gui-info-cooldown-lore: "Cooldown: {time}s remaining"
+    gui-info-combat-lore: "In combat! Wait {time}s"
+    gui-cancel-name: "Close"
+    gui-cancel-lore: "Click to close this menu"

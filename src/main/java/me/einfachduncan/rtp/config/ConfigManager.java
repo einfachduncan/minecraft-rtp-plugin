@@ -26,6 +26,18 @@ public class ConfigManager {
         return config.getInt("rtp.cooldown", 30);
     }
 
+    public int getCombatCooldown() {
+        return config.getInt("rtp.combat-cooldown", 15);
+    }
+
+    public int getSearchTime() {
+        return config.getInt("rtp.search-time", 5);
+    }
+
+    public int getMaxHeight() {
+        return config.getInt("rtp.max-height", 320);
+    }
+
     /**
      * Persists a new cooldown value to config.yml so it survives server restarts.
      */
@@ -88,6 +100,44 @@ public class ConfigManager {
 
     public String getGuiEndLore() {
         return config.getString("rtp.messages.gui-end-lore", "Teleportiere dich ins Ende");
+    }
+
+    public String getGuiInfoName() {
+        return config.getString("rtp.messages.gui-info-name", "Status");
+    }
+
+    public String getGuiInfoReadyLore() {
+        return config.getString("rtp.messages.gui-info-ready-lore", "Ready to teleport!");
+    }
+
+    public String getGuiInfoCooldownLore(long seconds) {
+        return config.getString("rtp.messages.gui-info-cooldown-lore", "Cooldown: {time}s remaining")
+                .replace("{time}", String.valueOf(seconds));
+    }
+
+    public String getGuiInfoCombatLore(long seconds) {
+        return config.getString("rtp.messages.gui-info-combat-lore", "In combat! Wait {time}s")
+                .replace("{time}", String.valueOf(seconds));
+    }
+
+    public String getGuiCancelName() {
+        return config.getString("rtp.messages.gui-cancel-name", "Close");
+    }
+
+    public String getGuiCancelLore() {
+        return config.getString("rtp.messages.gui-cancel-lore", "Click to close this menu");
+    }
+
+    public String getCombatMessage() {
+        return getMessage("in-combat");
+    }
+
+    public String getMovementCancelledMessage() {
+        return getMessage("rtp-cancelled-moved");
+    }
+
+    public String getSearchingMessage() {
+        return getMessage("searching");
     }
 
     // --- Messages ---

@@ -24,11 +24,12 @@ public class TeleportUtil {
      *   <li>Nether: scans downward from y={@value #NETHER_SCAN_START_Y} to avoid the bedrock ceiling.</li>
      * </ul>
      *
-     * @param world  the world to search in
-     * @param radius the maximum radius from world center (0, 0)
+     * @param world     the world to search in
+     * @param radius    the maximum radius from world center (0, 0)
+     * @param maxHeight maximum Y at which a surface spawn is accepted (ignored in Nether)
      * @return a safe Location, or null if none found after max attempts
      */
-    public static Location findSafeLocation(World world, int radius) {
+    public static Location findSafeLocation(World world, int radius, int maxHeight) {
         boolean isNether = world.getEnvironment() == World.Environment.NETHER;
 
         for (int attempt = 0; attempt < MAX_SAFE_LOCATION_ATTEMPTS; attempt++) {
@@ -37,7 +38,7 @@ public class TeleportUtil {
 
             Location candidate = isNether
                     ? getSafeYNether(world, x, z)
-                    : getSafeYSurface(world, x, z);
+                    : getSafeYSurface(world, x, z, maxHeight);
 
             if (candidate != null) {
                 return candidate;
@@ -51,9 +52,15 @@ public class TeleportUtil {
      * Returns the highest surface location that is solid and not liquid.
      * Uses {@link HeightMap#MOTION_BLOCKING_NO_LEAVES} so the player lands on
      * solid ground rather than on top of a tree canopy.
+     * Returns null if the surface is above {@code maxHeight}.
      */
-    private static Location getSafeYSurface(World world, int x, int z) {
+    private static Location getSafeYSurface(World world, int x, int z, int maxHeight) {
         Block surface = world.getHighestBlockAt(x, z, HeightMap.MOTION_BLOCKING_NO_LEAVES);
+
+        // Reject locations above the configured max height
+        if (surface.getY() > maxHeight) {
+            return null;
+        }
 
         // Reject oceans, rivers, and lava lakes
         if (surface.isLiquid()) {
